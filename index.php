@@ -14,17 +14,17 @@
    <a class="navbar-brand logo-text page-scroll" href="index.html">Magnus</a>
    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#header">Pocetna<span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                    <a class="btn-round-custom" href="#">Pocetna</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#intro">Aranzmani</a>
+                    <a class="btn-round-custom" href="aranzmani/aranzmani.php">Aranzmani</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#services">Pretraga</a>
+                    <a class="btn-round-custom" href="#services">Pretraga</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#callMe">Kontakt</a>
+                    <a class="btn-round-custom" href="#callMe">Kontakt</a>
                 </li>
             </ul>
             </div>
