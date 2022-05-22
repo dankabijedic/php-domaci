@@ -1,4 +1,5 @@
 <?php 
+include "../konekcija.php";
 
 	Class Aranzman{
 
@@ -46,14 +47,10 @@
 			
 		}
 
-        public function delete($table, $id, $id_value){
+        public function delete($id_aranzmana, mysqli $conn){
 
-			$query="DELETE FROM $table WHERE $table.$id=$id_value";
-			if ($sql = $this->conn->query($query)) {
-				return true;
-			}else{
-				return false;
-            }
+			$query="DELETE FROM aranzmani WHERE id_aranzmana='".$id_aranzmana."'";
+			$conn->query($query) or die($query);
             
         }
 
