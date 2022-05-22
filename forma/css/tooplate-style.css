@@ -233,6 +233,11 @@ p {
 	box-shadow: 0 0 0 0.2rem rgba(238,80,87,.25);
 }
 
+#nazivDrzave{
+	border-radius: 0;
+	padding: 0.6rem 0.75rem;
+}
+
 .btn-primary {
 	background-color: #ee5057;
 	border-color: #ee5057;
