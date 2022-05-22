@@ -60,8 +60,8 @@ session_start();
 	
 	if(isset($_POST['deletedata'])){
 
-		$id=$_POST['fdelete_id'];
-		$delete = $model->delete("aranzmani",'id',$id);
+		$id_aranzmana=$_POST['delete_id'];
+		$delete = $model->delete($id_aranzmana, $conn);
 		
 		if ($delete) {
             echo "<script>alert('Film je uspesno obrisan');</script>";
@@ -210,6 +210,36 @@ session_start();
     </div>
 </section>
 
+<!-- ################################# FORMA ZA BRISANJE POSTOJECEG #################################################### -->
+
+<div class="modal fade" id="aranzmanDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Brisanje aranzmana</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form action="aranzmani.php" method="POST">
+        
+        <div class="modal-body">
+        
+            <input type="hidden" name="delete_id" id="delete_id">
+            <h6>Da li ste sigurni da želite da obrišete izabrani film?</h6> 
+        
+        </div>
+
+        <div class="modal-footer">
+        <button type="button" name="canceldelete" class="btn btn-secondary" data-dismiss="modal">NE</button>
+        <button type="submit" name="deletedata" class="btn btn-primary">DA</button>
+        </div>
+        
+        </form>
+    </div>
+  </div>
+</div>
+
 <script>
 $(document).ready(function(){
     $(document).on('click', '.column_sort', function(){
@@ -236,6 +266,27 @@ $(document).ready(function(){
         })
     });
 });
+</script>
+
+<script>
+    $(document).ready(function (){
+        $('#aranzmaniTabela').on('click', '.deletebtn', function(event){
+            $('#aranzmanDeleteModal').modal('show');
+
+            $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+
+                    return $(this).text();
+
+                }).get();
+
+                console.log(data);
+
+                $('#delete_id').val(data[0]);
+               
+        });
+    });
 </script>
 </body>
 </html>
