@@ -26,14 +26,14 @@ include "../konekcija.php";
 				
 					$save=$table->query("INSERT INTO aranzmani(mesto,datum_polaska,datum_povratka,cena_u_evrima,nacin_prevoza,tip_smestaja,id_drzave) VALUES ('".$data['mesto']."','".$data['datum_polaska']."','".$data['datum_povratka']."','".$data['cena_u_evrima']."','".$data['nacin_prevoza']."','".$data['tip_smestaja']."','".$data['id_drzave']."')") or die($data->error);
 					if($save){
-						$this -> poruka = 'Uspesno sacuvana predstava';
+						$this -> poruka = 'Uspesno sacuvan aranzman';
 					}else{
-						$this -> poruka = 'Neuspesno sacuvan predstava';
+						$this -> poruka = 'Neuspesno sacuvan aranzman';
 					}
 				}
 		}           
 
-		public function fetch(mysqli $conn){
+		public static function fetch(mysqli $conn){
 			$data = null;
 
 			$query = "SELECT * , d.naziv_drzave FROM drzave d INNER JOIN aranzmani a on (d.id_drzave=a.id_drzave)";
@@ -43,8 +43,6 @@ include "../konekcija.php";
 				}
 			}
 			return $data;
-
-			
 		}
 
         public function delete($id_aranzmana, mysqli $conn){
@@ -53,21 +51,12 @@ include "../konekcija.php";
 			$conn->query($query) or die($query);
             
         }
+		
+		
 
-        public function update($table, $id_aranzmana, $mesto, $datum_polaska, $datum_povratka, $cena_u_evrima, $nacin_prevoza, $tip_smestaja, $id_drzave){
 
-			$query = "UPDATE $table SET mesto='$mesto', datum_polaska='$datum_polaska', datum_povratka='$datum_povratka', nacin_prevoza='$nacin_prevoza', tip_smestaja='$tip_smestaja', id_drzave='$id_drzave WHERE id_aranzmana='$id_aranzmana'";
-
-			if ($sql = $this->conn->query($query)) {
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-    }
-        ?>
-
+}
+?>
 
 
             
