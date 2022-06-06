@@ -1,8 +1,10 @@
 <?php
 require "../konekcija.php";
 require "aranzmaniobrada.php";
-
+include "../drzave.php";
 session_start();
+
+$drzava = Drzava::getCountry($conn);
 
 ?>
 
@@ -16,21 +18,24 @@ session_start();
     <title>Aranzmani</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../forma/css/bootstrap.min.css" type="text/css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-</head>
+</head> 
 <body>
 
 <?php
 
 
-    $model = new Aranzman('id_aranzmana','mesto','datum_polaska','datum_povratka','cena_u_evrima','nacin_prevoza','tipe_smestaja','id_drzave');
+    $model = new Aranzman('id_aranzmana','mesto','datum_polaska','datum_povratka','cena_u_evrima','nacin_prevoza','tip_smestaja','id_drzave');
     
     
     if (isset($_POST['insertdata'])) {
-        if (isset($_POST['id_aranzmana']) && isset($_POST['mesto']) && isset($_POST['datum_polaska']) && isset($_POST['datum_povratka']) && isset($_POST['cena_u_evrima'])&& isset($_POST['nacin_prevoza'])&& isset($_POST['tip_prevoza'])&& isset($_POST['id_drzave']) ) {
-            if (!empty($_POST['id_aranzmana']) && !empty($_POST['mesto']) && !empty($_POST['datum_polaska']) && !empty($_POST['datum_povratka'])&& !empty($_POST['cena_u_evrima']) && !empty($_POST['nacin_prevoza']) && !empty($_POST['tip_prevoza']) && !empty($_POST['id_drzave']) ) {
+        if (isset($_POST['id_aranzmana']) && isset($_POST['mesto']) && isset($_POST['datum_polaska']) && isset($_POST['datum_povratka']) && isset($_POST['cena_u_evrima'])&& isset($_POST['nacin_prevoza'])&& isset($_POST['tip_smestaja'])&& isset($_POST['id_drzave']) ) {
+            if (!empty($_POST['id_aranzmana']) && !empty($_POST['mesto']) && !empty($_POST['datum_polaska']) && !empty($_POST['datum_povratka'])&& !empty($_POST['cena_u_evrima']) && !empty($_POST['nacin_prevoza']) && !empty($_POST['tip_smestaja']) && !empty($_POST['id_drzave']) ) {
                     
                 $data['id_aranzmana'] = $_POST['id_aranzmana'];
                 $data['mesto'] = $_POST['mesto'];
@@ -39,7 +44,8 @@ session_start();
                 $data['cena_u_evrima'] = $_POST['cena_u_evrima'];
                 $data['nacin_prevoza'] = $_POST['nacin_prevoza'];
                 $data['tip_smestaja'] = $_POST['tip_smestaja'];
-                $data['id_drzave'] = $_POST['id_drzave'];
+                $data['id_drzave'] = $_POST['id_drzava'];
+
 
 
                 $insert = $model->insert('aranzman',$data);
@@ -68,38 +74,6 @@ session_start();
 			echo "<script>window.location.href = 'aranzmani.php';</script>";
 		}
     }
-  
-    
-    if (isset($_POST['updatedata'])) {
-        if (isset($_POST['id_aranzmana']) && isset($_POST['mesto']) && isset($_POST['datum_polaska']) && isset($_POST['datum_povratka']) && isset($_POST['cena_u_evrima'])&& isset($_POST['nacin_prevoza'])&& isset($_POST['tip_prevoza'])&& isset($_POST['id_drzave']) ) {
-            if (!empty($_POST['id_aranzmana']) && !empty($_POST['mesto']) && !empty($_POST['datum_polaska']) && !empty($_POST['datum_povratka'])&& !empty($_POST['cena_u_evrima']) && !empty($_POST['nacin_prevoza']) && !empty($_POST['tip_prevoza']) && !empty($_POST['id_drzave']) ) {
-                $id_aranzmana = $_POST['fupdate_id'];
-                $data['id_aranzmana'] = $_POST['id_aranzmana'];
-                $data['mesto'] = $_POST['mesto'];
-                $data['datum_polaska'] = $_POST['datum_polaska'];
-                $data['datum_povratka'] = $_POST['datum_povratka'];
-                $data['cena_u_evrima'] = $_POST['cena_u_evrima'];
-                $data['nacin_prevoza'] = $_POST['nacin_prevoza'];
-                $data['tip_smestaja'] = $_POST['tip_smestaja'];
-                $data['id_drzave'] = $_POST['id_drzave'];
-            
-                    $update = $model->update('arazmani', $id_aranzmana, $mesto, $datum_polaska, $datum_povratka, $cena_u_evrima, $nacin_prevoza, $tip_smestaja, $id_drzave);
-            
-                    if($update){
-                        echo "<script>alert('Film je uspesno izmenjen!');</script>";
-                        echo "<script>window.location.href = 'aranzmani.php';</script>";
-                    }else{
-                        echo "<script>alert('Greska prilikom izmene filma!');</script>";
-                        echo "<script>window.location.href = 'aranzmani.php';</script>";
-                    }
-            
-            }else{
-                echo "<script>alert('Sva polja su obavezna. Pokusajte ponovo!');</script>";
-                echo "<script>window.location.href = 'aranzmani.php';</script>";
-            }
-        }
-            
-    }     
 
 ?>
 
@@ -135,12 +109,7 @@ session_start();
         
                 
         <!-- ZA PRETRAZIVANJE-->
-        <div class="md-form active-pink active-pink-2 mb-3">
-            <input class="form-control search" type="text" id="filmInput" onkeyup="myFunction()" placeholder="Pretrazite filmove">
-        </div>
-                
-        <div id="output"></div>
-        <br>
+       
                 
         <?php
                     
@@ -158,10 +127,10 @@ session_start();
                                 <th scope="col"><a class="column_sort" id="mesto" data-order="desc" href="#">Mesto</a></th>
                                 <th scope="col"><a class="column_sort" id="datum_polaska" data-order="desc" href="#">Datum polaska</a></th>
                                 <th scope="col"><a class="column_sort" id="datum_povratka" data-order="desc" href="#">Datum povratka</a></th>
-                                <th scope="col"><a class="column_sort" id="cena" data-order="desc" href="#">Cena u evrima</a></th> 
+                                <th scope="col"><a class="column_sort" id="cena_u_evrima" data-order="desc" href="#">Cena u evrima</a></th> 
                                 <th scope="col"><a class="column_sort" id="nacin_prevoza" data-order="desc" href="#">Nacin prevoza</a></th> 
                                 <th scope="col"><a class="column_sort" id="tip_smestaja" data-order="desc" href="#">Tip prevoza</a></th> 
-                                <th scope="col">Drzava</th>
+                                <th scope="col"><a class="column_sort" id="tip_smestaja" data-order="desc" href="#">Drzava</th>
 
                                 <th scope="col">Izmeni</th>
                                 <th scope="col">Obrisi</th>
@@ -176,19 +145,19 @@ session_start();
                         
                 ?>
                     <tbody id="myTable">
-                        <tr>
+                        <tr id="<?php echo $row['id_aranzmana'] ?>">
                         
-                        <td> <?php echo $row['id_aranzmana']; ?> </td>
-                        <td> <?php echo $row['mesto']; ?> </td>
-                        <td> <?php echo $row['datum_polaska']; ?> </td>
-                        <td> <?php echo $row['datum_povratka']; ?> </td>
-                        <td> <?php echo $row['cena_u_evrima']; ?> </td>
-                        <td> <?php echo $row['nacin_prevoza']; ?> </td>
-                        <td> <?php echo $row['tip_smestaja']; ?> </td>
-                        <td> <?php echo $row['naziv_drzave']; ?> </td>
+                        <td data-target="id_aranzmana"> <?php echo $row['id_aranzmana']; ?> </td>
+                        <td data-target="mesto"> <?php echo $row['mesto']; ?> </td>
+                        <td data-target="datum_polaska"> <?php echo $row['datum_polaska']; ?> </td>
+                        <td data-target="datum_povratka"> <?php echo $row['datum_povratka']; ?> </td>
+                        <td data-target="cena_u_evrima"> <?php echo $row['cena_u_evrima']; ?> </td>
+                        <td data-target="nacin_prevoza"> <?php echo $row['nacin_prevoza']; ?> </td>
+                        <td data-target="tip_smestaja"> <?php echo $row['tip_smestaja']; ?> </td>
+                        <td data-target="naziv_drzave"> <?php echo $row['naziv_drzave']; ?> </td>
 
                         <td> 
-                            <button type="edit" class="btn btn-success editbtn">IZMENI</button>
+                            <button type="edit" data-id="<?php echo $row['id_aranzmana'] ;?>" data-role="update" class="btn btn-success editbtn">IZMENI</button>
                         </td>
                         <td> 
                             <button type="button" class="btn btn-danger deletebtn">OBRISI</button>
@@ -240,20 +209,14 @@ session_start();
   </div>
 </div>
 
+
+
 <script>
 $(document).ready(function(){
     $(document).on('click', '.column_sort', function(){
-        var column_name = $(this).attr("id_aranzmana");
+        var column_name = $(this).attr("id");
         var order = $(this).data("order");
-        var arrow = '';
-        if(order == 'desc')
-        {
-            arrow = '&nbsp;<span class="glyphicon glyphicon-arrow-down"></span>';
-        } 
-        else 
-        {
-            arrow = '&nbsp;<span class="glyphicon glyphicon-arrow-up"></span>';
-        }
+      
         $.ajax({
             url: "sort.php",
             method:"POST",
@@ -261,7 +224,6 @@ $(document).ready(function(){
             success:function(data)
             {
                 $('#aranzmaniTabela').html(data);
-                $('#'+column_name+'').append(arrow);
             }
         })
     });
@@ -288,6 +250,9 @@ $(document).ready(function(){
         });
     });
 </script>
+
+
+
 </body>
 </html>
 
