@@ -145,3 +145,10 @@
     border-right: 1px solid #E6E4E4;
 }
 
+.fade {
+    opacity: 100;
+}
+
+.modal-backdrop.in {
+    opacity: 0.9;
+}
