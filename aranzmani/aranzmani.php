@@ -132,7 +132,9 @@ $drzava = Drzava::getCountry($conn);
                                 <th scope="col"><a class="column_sort" id="tip_smestaja" data-order="desc" href="#">Tip prevoza</a></th> 
                                 <th scope="col"><a class="column_sort" id="tip_smestaja" data-order="desc" href="#">Drzava</th>
 
-                                <th scope="col">Izmeni</th>
+                                <th scope="col">
+                                    <a href="../edit/edit.php">Izmeni</a>
+                                </th>
                                 <th scope="col">Obrisi</th>
                             </tr>
                         </thead>
@@ -157,7 +159,9 @@ $drzava = Drzava::getCountry($conn);
                         <td data-target="naziv_drzave"> <?php echo $row['naziv_drzave']; ?> </td>
 
                         <td> 
-                            <button type="edit" data-id="<?php echo $row['id_aranzmana'] ;?>" data-role="update" class="btn btn-success editbtn">IZMENI</button>
+                            <button type="edit" data-id="<?php echo $row['id_aranzmana'] ;?>" data-role="update" class="btn btn-success editbtn">
+                            <a href="../edit/edit.php?id=<?php echo $row['id_aranzmana']; ?>">IZMENI</a>
+                            </button>
                         </td>
                         <td> 
                             <button type="button" class="btn btn-danger deletebtn">OBRISI</button>

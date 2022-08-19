@@ -3,6 +3,7 @@ include "../konekcija.php";
 
 	Class Aranzman{
 
+
         public function __construct($id_aranzmana,$mesto,$datum_polaska,$datum_povratka,$cena_u_evrima,$nacin_prevoza,$tip_smestaja,$id_drzave)
         {
             $this->id_aranzmana=$id_aranzmana;
@@ -52,10 +53,30 @@ include "../konekcija.php";
             
         }
 		
-		
+		public static function edit(mysqli $conn, $id_aranzmana){
 
+			$data = null;
 
-}
+			$query = "SELECT * FROM aranzmani a INNER JOIN drzave d on (d.id_drzave=a.id_drzave) WHERE id_aranzmana = '$id_aranzmana'";
+			if ($sql = $conn->query($query)) {
+				while($row = $sql->fetch_assoc()){
+					$data = $row;
+				}
+			}
+			return $data;
+		}
+
+		public static function update(mysqli $conn, $data){
+
+			$query = "UPDATE `aranzmani` INNER JOIN `drzave` on (aranzmani.id_drzave=drzave.id_drzave) SET `mesto`='$data[mesto]',`datum_polaska`='$data[datum_polaska]',`datum_povratka`='$data[datum_povratka]',`cena_u_evrima`='$data[cena_u_evrima]',`nacin_prevoza`='$data[nacin_prevoza]',`tip_smestaja`='$data[tip_smestaja]',`naziv_drzave`='$data[naziv_drzave]' WHERE `id_aranzmana`='$data[id_aranzmana]'";
+			if ($conn->query($query)) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+
 ?>
 
 

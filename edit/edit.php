@@ -9,33 +9,58 @@ $drzava = Drzava::getCountry($conn);
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
-    <title>Level HTML Template</title>
-    <!--
-
-Template 2095 Level
-
-http://www.tooplate.com/view/2095-level
-
--->
-    <!-- load stylesheets -->
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- Bootstrap style -->
     <link rel="stylesheet" href="css/tooplate-style.css"> <!-- Templatemo style -->
-
-
 </head>
-
-
 <body>
-    <div class="tm-main-content" id="top">
+  
+<?php
+$id_aranzmana = $_REQUEST['id'];
+$aranzman = Aranzman::edit($conn ,$id_aranzmana);
+
+if (isset($_POST['update'])) {
+    if (isset($_POST['mesto']) && isset($_POST['datum_polaska']) && isset($_POST['datum_povratka']) && isset($_POST['cena_u_evrima']) && isset($_POST['nacin_prevoza']) && isset($_POST['tip_smestaja']) && isset($_POST['naziv_drzave'])) {
+      if (!empty($_POST['mesto']) && !empty($_POST['datum_polaska']) && !empty($_POST['datum_povratka']) && !empty($_POST['cena_u_evrima']) && !empty($_POST['nacin_prevoza']) && !empty($_POST['tip_smestaja']) && !empty($_POST['naziv_drzave']) ) {
+        
+        $data['id_aranzmana'] = $_POST['id_aranzmana'];
+        $data['mesto'] = $_POST['mesto'];
+        $data['datum_polaska'] = $_POST['datum_polaska'];
+        $data['datum_povratka'] = $_POST['datum_povratka'];
+        $data['cena_u_evrima'] = $_POST['cena_u_evrima'];
+        $data['nacin_prevoza'] = $_POST['nacin_prevoza'];
+        $data['tip_smestaja'] = $_POST['tip_smestaja'];
+        $data['naziv_drzave'] = $_POST['naziv_drzave'];
+
+   //     $js_code = 'console. log(' . json_encode($data, JSON_HEX_TAG);
+   $output = implode(',', $data);
+
+   echo "<script>console.log('Debug Objects: " . $output . "' );</script>";        $update = Aranzman::update($conn, $data);
+
+        if($update){
+          echo "<script> alert('record update successfully');</script>";
+          echo "<script>window.location.href = '../aranzmani/aranzmani.php';</script>";
+        }else{
+          echo "<script>alert('record update failed');</script>";
+          echo "<script>window.location.href = '../aranzmani/aranzmani.php';</script>";
+        }
+
+      }else{
+        echo "<script>alert('empty');</script>";
+        header("Location: edit.php?id=");
+      }
+    }
+  }
+?>
+
+<div class="tm-main-content" id="top">
         <div class="tm-top-bar-bg"></div>
         <div class="tm-top-bar" id="tm-top-bar">
             <!-- Top Navbar -->
@@ -70,14 +95,14 @@ http://www.tooplate.com/view/2095-level
                 <div class="container ie-h-align-center-fix">
                     <div class="row">
                         <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                            <form action="forma.php" method="post" class="tm-search-form tm-section-pad-2">
+                            <form action="edit.php" method="post" class="tm-search-form tm-section-pad-2">
                                 <div class="form-row tm-search-form-row">
                                     <div class="form-group tm-form-element tm-form-element-100">
                                         <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                        <select class="form-control" name="naziv_drzave" id="naziv_drzave" placeholder="Drzava">                                      
-                                        <option value="" disabled selected>Drzava</option>
+                                        <select class="form-control" name="naziv_drzave" id="naziv_drzave">                                      
+                                        <option value="" disabled selected><?php echo $aranzman['naziv_drzave']; ?></option>
                                         <?php foreach($drzava as $d): ?>
-                                           <option value="<?php echo $d->id_drzave;?>">
+                                           <option value="<?php echo $d->naziv_drzave;?>">
                                           <?php echo $d->naziv_drzave;?>
                                        </option>
                                         <?php endforeach; ?>
@@ -85,25 +110,29 @@ http://www.tooplate.com/view/2095-level
                                     </div>
                                     <div class="form-group tm-form-element tm-form-element-100">
                                         <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                        <input name="mesto" type="text" class="form-control" id="mesto" placeholder="Mesto">
+                                        <input name="id_aranzmana" type="text" class="form-control" id="id_aranzmana" value=<?php echo $aranzman['id_aranzmana']; ?>>
+                                    </div>
+                                    <div class="form-group tm-form-element tm-form-element-100">
+                                        <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
+                                        <input name="mesto" type="text" class="form-control" id="mesto" value=<?php echo $aranzman['mesto']; ?>>
                                     </div>
                                     <div class="form-group tm-form-element tm-form-element-50">
                                         <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                        <input name="datum_polaska" type="text" class="form-control" id="datum_polaska" placeholder="Datum Polaska">
+                                        <input name="datum_polaska" type="text" class="form-control" id="datum_polaska" value=<?php echo $aranzman['datum_polaska']; ?>>
                                     </div>
                                     <div class="form-group tm-form-element tm-form-element-50">
                                         <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                        <input name="datum_povratka" type="text" class="form-control" id="datum_povratka" placeholder="Datum Povratka">
+                                        <input name="datum_povratka" type="text" class="form-control" id="datum_povratka" value=<?php echo $aranzman['datum_povratka']; ?>>
                                     </div>
                                 </div>
                                 <div class="form-row tm-search-form-row">
                                     <div class="form-group tm-form-element tm-form-element-50">
                                         <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                        <input name="cena_u_evrima" type="text" class="form-control" id="cena_u_evrima" placeholder="Cena u evrima">
+                                        <input name="cena_u_evrima" type="text" class="form-control" id="cena_u_evrima" value=<?php echo $aranzman['cena_u_evrima']; ?>>
                                     </div>
                                     <div class="form-group tm-form-element tm-form-element-2">
-                                        <select name="nacin_prevoza" class="form-control tm-select" id="nacin_prevoza">
-                                            <option value="">Nacin prevoza</option>
+                                        <select name="nacin_prevoza" class="form-control tm-select" id="nacin_prevoza" value=<?php echo $aranzman['nacin_prevoza']; ?>>
+                                            <option value=""><?php echo $aranzman['nacin_prevoza']; ?></option>
                                             <option value="Autobus">Autobus</option>
                                             <option value="Avion">Avion</option>
                                         </select>
@@ -111,18 +140,19 @@ http://www.tooplate.com/view/2095-level
                                     </div>
                                     <div class="form-group tm-form-element tm-form-element-2">
                                         <select name="tip_smestaja" class="form-control tm-select" id="tip_smestaja">
-                                            <option value="">Tip smestaja</option>
+                                            <option value=""><?php echo $aranzman['tip_smestaja']; ?></option>
                                             <option value="Hotel *">Hotel *</option>
                                             <option value="Hotel **">Hotel **</option>
                                             <option value="Hotel ***">Hotel ***</option>
                                             <option value="Hotel ****">Hotel ****</option>
                                             <option value="Hotel *****">Hotel *****</option>
-
                                         </select>
                                         <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small"></i>
                                     </div>
                                     <div class="form-group tm-form-element tm-form-element-2">
-                                        <button type="submit" name="insertdata" class="btn btn-primary tm-btn-search">Sacuvaj</button>
+                                        <button type="submit" name="update" class="btn btn-primary tm-btn-search">
+                                            <a href="../aranzmani/aranzmani.php">Sacuvaj</a>
+                                        </button>
                                     </div>
                                 </div>
 
@@ -143,7 +173,6 @@ http://www.tooplate.com/view/2095-level
                     </div>
                 </div>
             </div>
-        </div>
+        </div>    
 </body>
-
 </html>
