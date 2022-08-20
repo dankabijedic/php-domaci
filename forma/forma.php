@@ -29,12 +29,49 @@ http://www.tooplate.com/view/2095-level
     <!-- load stylesheets -->
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- Bootstrap style -->
     <link rel="stylesheet" href="css/tooplate-style.css"> <!-- Templatemo style -->
+    <link rel="stylesheet" href="../css/izgled.css">
 
 
 </head>
 
 
 <body>
+
+    <?php
+
+    if (isset($_POST['insertdata'])) {
+
+
+        $mesto = $_POST['mesto'];
+        $datum_polaska = $_POST['datum_polaska'];
+        $datum_povratka = $_POST['datum_povratka'];
+        $cena_u_evrima = $_POST['cena_u_evrima'];
+        $nacin_prevoza = $_POST['nacin_prevoza'];
+        $tip_smestaja = $_POST['tip_smestaja'];
+        $naziv_drzave = $_POST['naziv_drzave'];
+
+
+        $data = array(
+            "mesto" => $mesto,
+            "datum_polaska" => $datum_polaska,
+            "datum_povratka" => $datum_povratka,
+            "cena_u_evrima" => $cena_u_evrima,
+            "nacin_prevoza" => $nacin_prevoza,
+            "tip_smestaja" => $tip_smestaja,
+            "id_drzave" => $naziv_drzave
+        );
+
+        $aranzman = new Aranzman(null, $mesto, $datum_polaska, $datum_povratka, $cena_u_evrima, $nacin_prevoza, $tip_smestaja, $naziv_drzave);
+        $aranzman->insert($conn, $data);
+        if ($aranzman) {
+            echo "<script> alert('Uspesno ste kreirali novi aranzman.');</script>";
+            echo "<script>window.location.href = '../aranzmani/aranzmani.php';</script>";
+        } else {
+            echo "<script>alert('Kreiranje novog aranzmana nije uspelo.');</script>";
+            echo "<script>window.location.href = 'forma.php';</script>";
+        }
+    }
+    ?>
     <div class="tm-main-content" id="top">
         <div class="tm-top-bar-bg"></div>
         <div class="tm-top-bar" id="tm-top-bar">
@@ -53,9 +90,6 @@ http://www.tooplate.com/view/2095-level
                                     <a class="btn-round-custom" href="../aranzmani/aranzmani.php">Aranzmani</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn-round-custom" href="#">Pretraga</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="btn-round-custom" href="#callMe">Kontakt</a>
                                 </li>
                             </ul>
@@ -64,6 +98,10 @@ http://www.tooplate.com/view/2095-level
 
                 </div>
             </div>
+        </div>
+        <div class="col-md-12 mt-5">
+            <h1 class="text-center">Kreirajte novi aranzman</h1>
+            <hr style="height: 1px;color: black;background-color: black;">
         </div>
         <div class="tm-section tm-bg-img" id="tm-section-1">
             <div class="tm-bg-white ie-container-width-fix-2">
@@ -74,13 +112,13 @@ http://www.tooplate.com/view/2095-level
                                 <div class="form-row tm-search-form-row">
                                     <div class="form-group tm-form-element tm-form-element-100">
                                         <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                        <select class="form-control" name="naziv_drzave" id="naziv_drzave" placeholder="Drzava">                                      
-                                        <option value="" disabled selected>Drzava</option>
-                                        <?php foreach($drzava as $d): ?>
-                                           <option value="<?php echo $d->id_drzave;?>">
-                                          <?php echo $d->naziv_drzave;?>
-                                       </option>
-                                        <?php endforeach; ?>
+                                        <select class="form-control" name="naziv_drzave" id="naziv_drzave" placeholder="Drzava">
+                                            <option value="" disabled selected>Drzava</option>
+                                            <?php foreach ($drzava as $d) : ?>
+                                                <option value="<?php echo $d->id_drzave; ?>">
+                                                    <?php echo $d->naziv_drzave; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                     <div class="form-group tm-form-element tm-form-element-100">
@@ -122,7 +160,7 @@ http://www.tooplate.com/view/2095-level
                                         <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small"></i>
                                     </div>
                                     <div class="form-group tm-form-element tm-form-element-2">
-                                        <button type="submit" name="insertdata" class="btn btn-primary tm-btn-search">Sacuvaj</button>
+                                        <button type="submit" name="insertdata" class="btn btn-success tm-btn-search">Sacuvaj</button>
                                     </div>
                                 </div>
 
@@ -133,17 +171,6 @@ http://www.tooplate.com/view/2095-level
             </div>
         </div>
 
-        <div class="tm-section-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col text-center">
-                        <h2 class="tm-section-title">We are here to help you?</h2>
-                        <p class="tm-color-white tm-section-subtitle">Subscribe to get our newsletters</p>
-                        <a href="#" class="tm-color-white tm-btn-white-bordered">Subscribe Newletters</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 </body>
 
 </html>

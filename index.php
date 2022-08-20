@@ -15,7 +15,7 @@
 <body data-spy="scroll" data-target=".fixed-top">
 
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-        <a class="navbar-brand logo-text page-scroll" href="index.html">Magnus</a>
+        <a class="navbar-brand logo-text page-scroll" href="index.php">Magnus</a>
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -23,9 +23,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="btn-round-custom" href="aranzmani/aranzmani.php">Aranzmani</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn-round-custom" href="#services">Pretraga</a>
                 </li>
                 <li class="nav-item">
                     <a class="btn-round-custom" href="#callMe">Kontakt</a>
@@ -58,7 +55,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="section-title text-uppercase font-weight-bold">Izdvajamo iz ponude</h2>
+                    <h2 class="section-title text-uppercase font-weight-bold">Izdvajamo iz ponude</h2>
                 </div>
             </div>
             <div class="row">

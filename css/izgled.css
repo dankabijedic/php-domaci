@@ -73,7 +73,8 @@ a {
 
 .section-title {
   color: #14bf98;
-  font: 500 0.8125rem/1.125rem "Montserrat", sans-serif;
+  font: 500 3rem/1.125rem "Montserrat", sans-serif;
+  padding-top: 20px;
 }
 
 .btn-solid-reg {
@@ -256,6 +257,23 @@ a {
   padding: 10px;
 }
 
+.card-deck {
+  padding-bottom: 15px;
+}
+
+#jedanAranzman {
+  width: fit-content;
+  text-align: center;
+}
+
+#podaci {
+  background-color: #4fc3a1;
+}
+
+.search {
+  width: 100%;
+  align-items: center;
+}
 .nav-item {
   text-align: right;
 }

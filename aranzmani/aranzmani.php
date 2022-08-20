@@ -23,7 +23,7 @@ $drzava = Drzava::getCountry($conn);
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -85,7 +85,7 @@ $drzava = Drzava::getCountry($conn);
     </div>
 
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-        <a class="navbar-brand logo-text page-scroll" href="index.html">Magnus</a>
+        <a class="navbar-brand logo-text page-scroll" href="index.php">Magnus</a>
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -93,9 +93,6 @@ $drzava = Drzava::getCountry($conn);
                 </li>
                 <li class="nav-item">
                     <a class="btn-round-custom" href="#">Aranzmani</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn-round-custom" href="#services">Pretraga</a>
                 </li>
                 <li class="nav-item">
                     <a class="btn-round-custom" href="#callMe">Kontakt</a>
@@ -107,80 +104,99 @@ $drzava = Drzava::getCountry($conn);
     <section class="hero set-bg" data-setbg="img/blue.jpg">
 
         <div class="container">
-            <?php
-            $result = $model->fetch($conn);
-            ///    $query = "SELECT * , d.naziv_drzave FROM drzave d INNER JOIN aranzmani a on (d.id_drzave=a.id_drzave) ORDER BY id_aranzmana ASC";
-            //    $result = mysqli_query($conn, $query);
-
-            ?>
-            <div class="table-responsive" id="tabela">
-                <div class="card-body">
-                    <table class="table table-hover" id="aranzmaniTabela">
-                        <thead>
-                            <tr>
-                                <th scope="col"><a class="column_sort" id="id_aranzmana" data-order="desc" href="#">ID</a></th>
-                                <th scope="col"><a class="column_sort" id="mesto" data-order="desc" href="#">Mesto</a></th>
-                                <th scope="col"><a class="column_sort" id="datum_polaska" data-order="desc" href="#">Datum polaska</a></th>
-                                <th scope="col"><a class="column_sort" id="datum_povratka" data-order="desc" href="#">Datum povratka</a></th>
-                                <th scope="col"><a class="column_sort" id="cena_u_evrima" data-order="desc" href="#">Cena u evrima</a></th>
-                                <th scope="col"><a class="column_sort" id="nacin_prevoza" data-order="desc" href="#">Nacin prevoza</a></th>
-                                <th scope="col"><a class="column_sort" id="tip_smestaja" data-order="desc" href="#">Tip prevoza</a></th>
-                                <th scope="col"><a class="column_sort" id="tip_smestaja" data-order="desc" href="#">Drzava</th>
-
-                                <th scope="col">
-                                    <a href="../edit/edit.php">Izmeni</a>
-                                </th>
-                                <th scope="col">Obrisi</th>
-                                <th scope="col">Prikazi</th>
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            if (!empty($result)) {
-                                foreach ($result as $row) {
-
-                            ?>
-                        <tbody id="myTable">
-                            <tr id="<?php echo $row['id_aranzmana'] ?>">
-
-                                <td data-target="id_aranzmana"> <?php echo $row['id_aranzmana']; ?> </td>
-                                <td data-target="mesto"> <?php echo $row['mesto']; ?> </td>
-                                <td data-target="datum_polaska"> <?php echo $row['datum_polaska']; ?> </td>
-                                <td data-target="datum_povratka"> <?php echo $row['datum_povratka']; ?> </td>
-                                <td data-target="cena_u_evrima"> <?php echo $row['cena_u_evrima']; ?> </td>
-                                <td data-target="nacin_prevoza"> <?php echo $row['nacin_prevoza']; ?> </td>
-                                <td data-target="tip_smestaja"> <?php echo $row['tip_smestaja']; ?> </td>
-                                <td data-target="naziv_drzave"> <?php echo $row['naziv_drzave']; ?> </td>
-
-                                <td>
-                                    <button type="button" data-id="<?php echo $row['id_aranzmana']; ?>" data-role="update" class="btn btn-success editbtn">
-                                        <a href="../edit/edit.php?id=<?php echo $row['id_aranzmana']; ?>">IZMENI</a>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn">OBRISI</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger readbtn">
-                                        <a href="../read.php?id=<?php echo $row['id_aranzmana']; ?>">PRIKAZI</a>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-
-                        </tbody>
+            <div class="row">
+                <div class="col-md-12 mt-5">
+                    <h1 class="text-center">ARANZMANI</h1>
+                    <hr style="height: 1px;color: black;background-color: black;">
+                </div>
                 <?php
-                                }
-                            } else {
-                                echo "no data";
-                            }
+                $result = $model->fetch($conn);
                 ?>
-                    </table>
+                <br>
+
+                <!-- ZA PRETRAZIVANJE-->
+                <div class="md-form active-pink active-pink-2 mb-3 text-center">
+                    <input class="form-control search" type="text" id="aranzmanInput" onkeyup="myFunction()" placeholder="Pretrazite aranzmane">
+                </div>
+
+                <div id="output"></div>
+                <br>
+                <div class="table-responsive" id="tabela">
+                    <div class="card-body">
+                        <table class="table table-hover" id="aranzmaniTabela">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><a class="column_sort" id="id_aranzmana" data-order="desc" href="#">ID</a></th>
+                                    <th scope="col"><a class="column_sort" id="mesto" data-order="desc" href="#">Mesto</a></th>
+                                    <th scope="col"><a class="column_sort" id="tip_smestaja" data-order="desc" href="#">Drzava</th>
+                                    <th scope="col"><a class="column_sort" id="datum_polaska" data-order="desc" href="#">Datum polaska</a></th>
+                                    <th scope="col"><a class="column_sort" id="datum_povratka" data-order="desc" href="#">Datum povratka</a></th>
+                                    <th scope="col"><a class="column_sort" id="cena_u_evrima" data-order="desc" href="#">Cena u evrima</a></th>
+                                    <th scope="col"><a class="column_sort" id="nacin_prevoza" data-order="desc" href="#">Nacin prevoza</a></th>
+                                    <th scope="col"><a class="column_sort" id="tip_smestaja" data-order="desc" href="#">Tip smestaja</a></th>
+
+                                    <th scope="col">
+                                        <a href="../edit/edit.php">Izmeni</a>
+                                    </th>
+                                    <th scope="col">Obrisi</th>
+                                    <th scope="col">Prikazi</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                if (!empty($result)) {
+                                    foreach ($result as $row) {
+
+                                ?>
+                            <tbody id="myTable">
+                                <tr id="<?php echo $row['id_aranzmana'] ?>">
+
+                                    <td data-target="id_aranzmana"> <?php echo $row['id_aranzmana']; ?> </td>
+                                    <td data-target="mesto"> <?php echo $row['mesto']; ?> </td>
+                                    <td data-target="naziv_drzave"> <?php echo $row['naziv_drzave']; ?> </td>
+                                    <td data-target="datum_polaska"> <?php echo $row['datum_polaska']; ?> </td>
+                                    <td data-target="datum_povratka"> <?php echo $row['datum_povratka']; ?> </td>
+                                    <td data-target="cena_u_evrima"> <?php echo $row['cena_u_evrima']; ?> </td>
+                                    <td data-target="nacin_prevoza"> <?php echo $row['nacin_prevoza']; ?> </td>
+                                    <td data-target="tip_smestaja"> <?php echo $row['tip_smestaja']; ?> </td>
+
+                                    <td>
+                                        <button type="button" data-id="<?php echo $row['id_aranzmana']; ?>" data-role="update" class="btn btn-success editbtn">
+                                            <a href="../edit/edit.php?id=<?php echo $row['id_aranzmana']; ?>">IZMENI</a>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger deletebtn">OBRISI</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-success readbtn">
+                                            <a href="../read.php?id=<?php echo $row['id_aranzmana']; ?>">PRIKAZI</a>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                            </tbody>
+                    <?php
+                                    }
+                                } else {
+                                    echo "no data";
+                                }
+                    ?>
+                        </table>
+                        <div class="container bg-light">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-success">
+                                    <a href="../forma/forma.php">Kreiraj novi aranzman</a>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- ################################# FORMA ZA BRISANJE POSTOJECEG #################################################### -->
@@ -199,7 +215,7 @@ $drzava = Drzava::getCountry($conn);
                     <div class="modal-body">
 
                         <input type="hidden" name="delete_id" id="delete_id">
-                        <h6>Da li ste sigurni da želite da obrišete izabrani film?</h6>
+                        <h6>Da li ste sigurni da želite da obrišete izabrani aranzman?</h6>
 
                     </div>
 
@@ -257,7 +273,29 @@ $drzava = Drzava::getCountry($conn);
         });
     </script>
 
+    <script>
+        function myFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("aranzmanInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("aranzmaniTabela");
+            tr = table.getElementsByTagName("tr");
 
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 </body>
 

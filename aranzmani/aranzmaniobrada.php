@@ -27,9 +27,9 @@
 				
 					$save=$table->query("INSERT INTO aranzmani(mesto,datum_polaska,datum_povratka,cena_u_evrima,nacin_prevoza,tip_smestaja,id_drzave) VALUES ('".$data['mesto']."','".$data['datum_polaska']."','".$data['datum_povratka']."','".$data['cena_u_evrima']."','".$data['nacin_prevoza']."','".$data['tip_smestaja']."','".$data['id_drzave']."')") or die($data->error);
 					if($save){
-						$this -> poruka = 'Uspesno sacuvan aranzman';
+						return true;
 					}else{
-						$this -> poruka = 'Neuspesno sacuvan aranzman';
+						return false;
 					}
 				}
 		}           
@@ -89,9 +89,3 @@
 			}
 		}
 	}
-
-?>
-
-
-            
- 

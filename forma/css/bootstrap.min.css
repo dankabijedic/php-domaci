@@ -221,7 +221,7 @@ a {
   -webkit-text-decoration-skip: objects;
 }
 a:hover {
-  color: #0056b3;
+  color: #f8f9fa;
   text-decoration: underline;
 }
 a:not([href]):not([tabindex]) {
@@ -406,6 +406,10 @@ h6 {
   font-weight: 500;
   line-height: 1.2;
   color: inherit;
+}
+.h4,
+h4 {
+  color: #f8f9fa;
 }
 .h1,
 h1 {

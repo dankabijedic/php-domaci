@@ -81,9 +81,6 @@ $drzava = Drzava::getCountry($conn);
                                     <a class="btn-round-custom" href="../aranzmani/aranzmani.php">Aranzmani</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn-round-custom" href="#">Pretraga</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="btn-round-custom" href="#callMe">Kontakt</a>
                                 </li>
                             </ul>
