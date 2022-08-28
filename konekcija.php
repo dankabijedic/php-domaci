@@ -1,5 +1,5 @@
 <?php
-$mysql_server = "localhost";
+$mysql_server = "localhost:3307";
 $mysql_user = "root";
 $mysql_password = "";
 $mysql_db = "turisticka_agencija";
@@ -9,4 +9,3 @@ if ($conn->connect_errno) {
     exit();
 }
 $conn->set_charset("utf8");
-?>

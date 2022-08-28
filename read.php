@@ -29,7 +29,7 @@ include "aranzmani/aranzmaniobrada.php";
           <a class="btn-round-custom" href="aranzmani/aranzmani.php">Aranzmani</a>
         </li>
         <li class="nav-item">
-          <a class="btn-round-custom" href="#callMe">Kontakt</a>
+          <a class="btn-round-custom" href="kontakt.php">Kontakt</a>
         </li>
       </ul>
     </div>

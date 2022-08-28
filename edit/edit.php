@@ -49,15 +49,15 @@ $drzava = Drzava::getCountry($conn);
                 $update = Aranzman::update($conn, $data);
 
                 if ($update) {
-                    echo "<script> alert('record update successfully');</script>";
+                    echo "<script> alert('Uspesno ste izmenili araznman!');</script>";
                     echo "<script>window.location.href = '../aranzmani/aranzmani.php';</script>";
                 } else {
-                    echo "<script>alert('record update failed');</script>";
+                    echo "<script> alert('Izmena aranzmana nije uspela!');</script>";
                     echo "<script>window.location.href = '../aranzmani/aranzmani.php';</script>";
                 }
             } else {
-                echo "<script>alert('empty');</script>";
-                header("Location: edit.php?id=");
+                echo "<script> alert('Sva polja su obavezna. Pokusajte ponovo!');</script>";
+                echo "<script>window.location.href = '../aranzmani/aranzmani.php';</script>";
             }
         }
     }

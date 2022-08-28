@@ -25,7 +25,7 @@
                     <a class="btn-round-custom" href="aranzmani/aranzmani.php">Aranzmani</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn-round-custom" href="#callMe">Kontakt</a>
+                    <a class="btn-round-custom" href="kontakt.php">Kontakt</a>
                 </li>
             </ul>
         </div>
@@ -150,8 +150,8 @@
 
             </div> <!-- end of row -->
         </div> <!-- end of container -->
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="/"> MDBootstrap.com</a>
+        <div class="footer-copyright text-center py-3">© 2022 Copyright:
+            <a href="/"> Danka Bijedic</a>
         </div>
 
     </footer> <!-- end of footer -->

@@ -40,35 +40,42 @@ http://www.tooplate.com/view/2095-level
     <?php
 
     if (isset($_POST['insertdata'])) {
+        if (isset($_POST['mesto']) && isset($_POST['datum_polaska']) && isset($_POST['datum_povratka']) && isset($_POST['cena_u_evrima']) && isset($_POST['nacin_prevoza']) && isset($_POST['tip_smestaja']) && isset($_POST['naziv_drzave'])) {
+            if (!empty($_POST['mesto']) && !empty($_POST['datum_polaska']) && !empty($_POST['datum_povratka']) && !empty($_POST['cena_u_evrima']) && !empty($_POST['nacin_prevoza']) && !empty($_POST['tip_smestaja']) && !empty($_POST['naziv_drzave'])) {
 
 
-        $mesto = $_POST['mesto'];
-        $datum_polaska = $_POST['datum_polaska'];
-        $datum_povratka = $_POST['datum_povratka'];
-        $cena_u_evrima = $_POST['cena_u_evrima'];
-        $nacin_prevoza = $_POST['nacin_prevoza'];
-        $tip_smestaja = $_POST['tip_smestaja'];
-        $naziv_drzave = $_POST['naziv_drzave'];
+                $mesto = $_POST['mesto'];
+                $datum_polaska = $_POST['datum_polaska'];
+                $datum_povratka = $_POST['datum_povratka'];
+                $cena_u_evrima = $_POST['cena_u_evrima'];
+                $nacin_prevoza = $_POST['nacin_prevoza'];
+                $tip_smestaja = $_POST['tip_smestaja'];
+                $naziv_drzave = $_POST['naziv_drzave'];
 
 
-        $data = array(
-            "mesto" => $mesto,
-            "datum_polaska" => $datum_polaska,
-            "datum_povratka" => $datum_povratka,
-            "cena_u_evrima" => $cena_u_evrima,
-            "nacin_prevoza" => $nacin_prevoza,
-            "tip_smestaja" => $tip_smestaja,
-            "id_drzave" => $naziv_drzave
-        );
+                $data = array(
+                    "mesto" => $mesto,
+                    "datum_polaska" => $datum_polaska,
+                    "datum_povratka" => $datum_povratka,
+                    "cena_u_evrima" => $cena_u_evrima,
+                    "nacin_prevoza" => $nacin_prevoza,
+                    "tip_smestaja" => $tip_smestaja,
+                    "id_drzave" => $naziv_drzave
+                );
 
-        $aranzman = new Aranzman(null, $mesto, $datum_polaska, $datum_povratka, $cena_u_evrima, $nacin_prevoza, $tip_smestaja, $naziv_drzave);
-        $aranzman->insert($conn, $data);
-        if ($aranzman) {
-            echo "<script> alert('Uspesno ste kreirali novi aranzman.');</script>";
-            echo "<script>window.location.href = '../aranzmani/aranzmani.php';</script>";
-        } else {
-            echo "<script>alert('Kreiranje novog aranzmana nije uspelo.');</script>";
-            echo "<script>window.location.href = 'forma.php';</script>";
+                $aranzman = new Aranzman(null, $mesto, $datum_polaska, $datum_povratka, $cena_u_evrima, $nacin_prevoza, $tip_smestaja, $naziv_drzave);
+                $aranzman->insert($conn, $data);
+                if ($aranzman) {
+                    echo "<script> alert('Uspesno ste kreirali novi aranzman.');</script>";
+                    echo "<script>window.location.href = '../aranzmani/aranzmani.php';</script>";
+                } else {
+                    echo "<script> alert('Kreiranje novog aranzmana nije uspelo.');</script>";
+                    echo "<script>window.location.href = 'forma.php';</script>";
+                }
+            } else {
+                echo "<script>alert('Sva polja su obavezna. Pokusajte ponovo!');</script>";
+                echo "<script>window.location.href = 'forma.php';</script>";
+            }
         }
     }
     ?>
@@ -90,7 +97,7 @@ http://www.tooplate.com/view/2095-level
                                     <a class="btn-round-custom" href="../aranzmani/aranzmani.php">Aranzmani</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn-round-custom" href="#callMe">Kontakt</a>
+                                    <a class="btn-round-custom" href="../kontakt.php">Kontakt</a>
                                 </li>
                             </ul>
                         </div>

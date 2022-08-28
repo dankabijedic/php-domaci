@@ -34,7 +34,6 @@ $drzava = Drzava::getCountry($conn);
 
     $model = new Aranzman('id_aranzmana', 'mesto', 'datum_polaska', 'datum_povratka', 'cena_u_evrima', 'nacin_prevoza', 'tip_smestaja', 'id_drzave');
 
-
     if (isset($_POST['insertdata'])) {
         if (isset($_POST['id_aranzmana']) && isset($_POST['mesto']) && isset($_POST['datum_polaska']) && isset($_POST['datum_povratka']) && isset($_POST['cena_u_evrima']) && isset($_POST['nacin_prevoza']) && isset($_POST['tip_smestaja']) && isset($_POST['id_drzave'])) {
             if (!empty($_POST['id_aranzmana']) && !empty($_POST['mesto']) && !empty($_POST['datum_polaska']) && !empty($_POST['datum_povratka']) && !empty($_POST['cena_u_evrima']) && !empty($_POST['nacin_prevoza']) && !empty($_POST['tip_smestaja']) && !empty($_POST['id_drzave'])) {
@@ -85,7 +84,7 @@ $drzava = Drzava::getCountry($conn);
     </div>
 
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-        <a class="navbar-brand logo-text page-scroll" href="index.php">Magnus</a>
+        <a class="navbar-brand logo-text page-scroll" href="../index.php">Magnus</a>
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -95,7 +94,7 @@ $drzava = Drzava::getCountry($conn);
                     <a class="btn-round-custom" href="#">Aranzmani</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn-round-custom" href="#callMe">Kontakt</a>
+                    <a class="btn-round-custom" href="../kontakt.php">Kontakt</a>
                 </li>
             </ul>
         </div>
@@ -202,7 +201,7 @@ $drzava = Drzava::getCountry($conn);
     <!-- ################################# FORMA ZA BRISANJE POSTOJECEG #################################################### -->
 
     <div class="modal fade" id="aranzmanDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Brisanje aranzmana</h5>
